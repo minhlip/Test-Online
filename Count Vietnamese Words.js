@@ -15,32 +15,27 @@ Bài giải cần được refactor code
 const countVietnameseWords = (input) => {
     let regex = /(?:aw|aa|dd|ee|oo|ow|w)/g
     let matches = input.match(regex)
-    return matches ? matches.reduce((count,match)=> count + 1, 0) : 0   
+    return matches ? matches.length : 0   
 }
 
 console.log(countVietnameseWords("hfdawhwhcoomdd")) //4
 
 
 // Solution 2
-const countVietnameseCharacters = (str) => {
+function countVietnameseCharacters(str) {
     const vietnameseChars = ['aw', 'aa', 'dd', 'ee', 'oo', 'ow', 'w'];
     let count = 0;
-    let i = 0;
-    while (i < str.length) {
-      let found = false;
+    for (let i = 0; i < str.length; i++) {
       for (let j = 0; j < vietnameseChars.length; j++) {
         const char = vietnameseChars[j];
-        if (str.substring(i, i + char.length) === char) {
+        if (str.slice(i).startsWith(char)) {
           count++;
-          i += char.length;
-          found = true;
+          i += char.length - 1;
           break;
         }
-      }
-      if (!found) {
-        i++;
       }
     }
     return count;
   }
 console.log(countVietnameseCharacters("hfdawhwhcoomdd")) //4
+
